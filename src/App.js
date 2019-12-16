@@ -7,39 +7,39 @@ function User(props) {
 }
 
 class Toot extends React.Component {
+  state = {
+    liked: false
+  };
+
+  toggleLiked = () => {
+    const newLikedStatus = !this.state.liked;
+    this.setState({ liked: newLikedStatus });
+  };
+
+  renderLikeButton() {
+    const buttonIcon = this.state.liked ? "♥" : "♡";
+    return <div onClick={this.toggleLiked}>{buttonIcon}</div>;
+  }
+
   render() {
     const { user, message, children } = this.props;
     return (
       <div className="Toot">
         <User name={user} />
         {message}
-        {children}
+        {this.renderLikeButton()}
       </div>
     );
   }
 }
 
-const toots = [
-  {
-    id: 1,
-    message: "Hello Earth 616",
-    user: "Jack"
-  },
-  {
-    id: 2,
-    message: "Hello Jupiter",
-    user: "Ryan"
-  },
-  {
-    id: 3,
-    message: "Hello Saturn",
-    user: "Roddy"
-  }
-];
-
 class App extends React.Component {
   renderToots() {
-    return toots.map(toot => {
+    const ignoredUsers = ["Grinch"];
+    const bestToots = this.props.toots.filter(
+      toot => !ignoredUsers.includes(toot.user)
+    );
+    return bestToots.map(toot => {
       return (
         <Toot {...toot}>
           <div>Extra message</div>
@@ -49,7 +49,12 @@ class App extends React.Component {
   }
 
   render() {
-    return <div className="App">{this.renderToots()}</div>;
+    return (
+      <div className="App">
+        <h1>Tooter</h1>
+        {this.renderToots()}
+      </div>
+    );
   }
 }
 
