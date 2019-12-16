@@ -6,14 +6,17 @@ function User(props) {
   return <div className="user">{props.name}</div>;
 }
 
-function Toot(props) {
-  return (
-    <div className="Toot">
-      <User name={props.user} />
-      {props.message}
-      {props.children}
-    </div>
-  );
+class Toot extends React.Component {
+  render() {
+    const { user, message, children } = this.props;
+    return (
+      <div className="Toot">
+        <User name={user} />
+        {message}
+        {children}
+      </div>
+    );
+  }
 }
 
 const toots = [
@@ -34,18 +37,20 @@ const toots = [
   }
 ];
 
-function App() {
-  return (
-    <div className="App">
-      {toots.map(toot => {
-        return (
-          <Toot {...toot}>
-            <div>Extra message</div>
-          </Toot>
-        );
-      })}
-    </div>
-  );
+class App extends React.Component {
+  renderToots() {
+    return toots.map(toot => {
+      return (
+        <Toot {...toot}>
+          <div>Extra message</div>
+        </Toot>
+      );
+    });
+  }
+
+  render() {
+    return <div className="App">{this.renderToots()}</div>;
+  }
 }
 
 export default App;
