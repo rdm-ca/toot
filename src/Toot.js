@@ -29,7 +29,6 @@ class Toot extends React.Component {
         <User name={user} />
         <div>{id}</div>
         {message}
-        <div>{likedToots}</div>
         {this.renderLikeButton()}
       </div>
     );

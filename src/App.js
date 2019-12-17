@@ -31,7 +31,6 @@ class App extends React.Component {
           key={i}
           tootLiked={this.tootLiked}
           tootUnliked={this.tootUnliked}
-          likedToots={this.state.likedToots}
         >
           <div>Extra message</div>
         </Toot>
