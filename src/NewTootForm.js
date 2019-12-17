@@ -1,5 +1,7 @@
 import React from "react";
 
+import styles from "./NewTootForm.module.css";
+
 class NewTootForm extends React.Component {
   state = {
     user: null,
@@ -32,22 +34,30 @@ class NewTootForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.addToot}>
-        <h3>New Toot</h3>
-        <div>
+      <div className={styles.NewTootForm}>
+        <form onSubmit={this.addToot}>
+          <h2>New Toot</h2>
+          <div>
+            <input
+              placeholder="Who's tootin'?"
+              size="25"
+              onChange={this.updateUser}
+              className={styles.input}
+            />
+            <input
+              placeholder="What's tootin'?"
+              size="120"
+              onChange={this.updateMessage}
+              className={styles.input}
+            />
+          </div>
           <input
-            placeholder="Who's tootin'?"
-            size="25"
-            onChange={this.updateUser}
-          />
-          <input
-            placeholder="What's tootin'?"
-            size="140"
-            onChange={this.updateMessage}
-          />
-        </div>
-        <input type="submit" value="Toot 🥳"></input>
-      </form>
+            type="submit"
+            value="Toot 🥳"
+            className={`${styles.button} ${styles.input}`}
+          ></input>
+        </form>
+      </div>
     );
   }
 }

@@ -1,11 +1,4 @@
-.App {
-  border: 3px solid blue;
-}
-
-.Toot {
-  border: 5px solid red;
-}
-
-.Toot .user {
-  font-style: italic;
+body {
+  margin: 2rem;
+  font-size: 13pt;
 }

@@ -2,6 +2,8 @@ import React from "react";
 
 import User from "./User";
 
+import styles from "./Toot.module.css";
+
 class Toot extends React.Component {
   state = {
     liked: false
@@ -19,16 +21,19 @@ class Toot extends React.Component {
 
   renderLikeButton() {
     const buttonIcon = this.state.liked ? "❤️" : "🖤";
-    return <div onClick={this.toggleLiked}>{buttonIcon}</div>;
+    return (
+      <div className={styles.likeButton} onClick={this.toggleLiked}>
+        {buttonIcon}
+      </div>
+    );
   }
 
   render() {
-    const { id, user, message, likedToots } = this.props;
+    const { user, message } = this.props;
     return (
-      <div className="Toot">
+      <div className={styles.Toot}>
         <User name={user} />
-        <div>{id}</div>
-        {message}
+        <p>{message}</p>
         {this.renderLikeButton()}
       </div>
     );

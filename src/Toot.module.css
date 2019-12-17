@@ -1,0 +1,16 @@
+.likeButton {
+  font-size: 85%;
+  border-radius: 5px;
+  margin-top: 1rem;
+
+}
+
+.likeButton:after {
+  content: " Like"
+}
+
+.Toot {
+  border: 1px solid #ededed;
+  margin: 1rem;
+  padding: 1rem;
+}
