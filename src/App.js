@@ -1,43 +1,7 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
-function User(props) {
-  return <div className="user">{props.name}</div>;
-}
-
-class Toot extends React.Component {
-  state = {
-    liked: false
-  };
-
-  toggleLiked = () => {
-    const newLikedStatus = !this.state.liked;
-    if (newLikedStatus) {
-      this.props.tootLiked();
-    } else {
-      this.props.tootUnliked();
-    }
-    this.setState({ liked: newLikedStatus });
-  };
-
-  renderLikeButton() {
-    const buttonIcon = this.state.liked ? "❤️" : "🖤";
-    return <div onClick={this.toggleLiked}>{buttonIcon}</div>;
-  }
-
-  render() {
-    const { user, message, children, likedToots } = this.props;
-    return (
-      <div className="Toot">
-        <User name={user} />
-        {message}
-        <div>{likedToots}</div>
-        {this.renderLikeButton()}
-      </div>
-    );
-  }
-}
+import Toot from "./Toot";
 
 class App extends React.Component {
   state = {
@@ -46,6 +10,7 @@ class App extends React.Component {
 
   tootLiked = () => {
     this.setState({ likedToots: this.state.likedToots + 1 });
+    console.log(this.state.likedToots);
   };
 
   tootUnliked = () => {
@@ -76,8 +41,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Tooter</h1>
-        {/* <button onClick={this.tootLiked}>Liked a toot</button> */}
-        <strong>Liked Toots: {this.state.likedToots}</strong>
+        <menu></menu>
+        Liked Toots: {this.state.likedToots}
         {this.renderToots()}
       </div>
     );
