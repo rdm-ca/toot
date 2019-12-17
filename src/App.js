@@ -2,10 +2,12 @@ import React from "react";
 import "./App.css";
 
 import Toot from "./Toot";
+import NewTootForm from "./NewTootForm";
 
 class App extends React.Component {
   state = {
-    likedToots: 0
+    likedToots: 0,
+    toots: this.props.toots
   };
 
   tootLiked = () => {
@@ -19,7 +21,7 @@ class App extends React.Component {
 
   renderToots() {
     const ignoredUsers = ["Grinch"];
-    const bestToots = this.props.toots.filter(
+    const bestToots = this.state.toots.filter(
       toot => !ignoredUsers.includes(toot.user)
     );
     return bestToots.map((toot, i) => {
@@ -37,11 +39,18 @@ class App extends React.Component {
     });
   }
 
+  addToot = toot => {
+    let toots = this.state.toots;
+    toots.push(toot);
+    this.setState({ toots: toots });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>Tooter</h1>
         <menu></menu>
+        <NewTootForm addToot={this.addToot} />
         Liked Toots: {this.state.likedToots}
         {this.renderToots()}
       </div>
