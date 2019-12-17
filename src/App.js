@@ -10,6 +10,15 @@ class App extends React.Component {
     toots: this.props.toots
   };
 
+  // constructor(props) {
+  //   super(props)
+
+  //   this.state = {
+  //     likedToots: 0,
+  //     toots: props.toots
+  //   }
+  // }
+
   tootLiked = () => {
     this.setState({ likedToots: this.state.likedToots + 1 });
     console.log(this.state.likedToots);
