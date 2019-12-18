@@ -47,20 +47,28 @@ class Toot extends React.Component {
 
   renderEditButton() {
     return (
-      <div className={styles.editButton} onClick={this.edit}>
+      <div className={styles.editButton} onClick={this.toggleEditing}>
         ✏️
       </div>
     );
   }
 
-  edit = () => {
-    this.setState({ editing: true });
+  toggleEditing = () => {
+    this.setState({ editing: !this.state.editing });
   };
 
   renderFormOrToot() {
-    const { user, message } = this.props;
+    const { user, message, id } = this.props;
     if (this.state.editing) {
-      return <TootForm user={user} message={message} />;
+      return (
+        <TootForm
+          user={user}
+          message={message}
+          editing={true}
+          id={id}
+          toggleEditing={this.toggleEditing}
+        />
+      );
     } else {
       return (
         <div>
