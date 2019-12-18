@@ -10,11 +10,12 @@ class Toot extends React.Component {
   };
 
   toggleLiked = () => {
+    const { tootLiked, tootUnliked, id } = this.props;
     const newLikedStatus = !this.state.liked;
     if (newLikedStatus) {
-      this.props.tootLiked(this.props.id);
+      tootLiked(id);
     } else {
-      this.props.tootUnliked();
+      tootUnliked(id);
     }
     this.setState({ liked: newLikedStatus });
   };
@@ -28,6 +29,19 @@ class Toot extends React.Component {
     );
   }
 
+  delete = () => {
+    const { id, deleteToot } = this.props;
+    deleteToot(id);
+  };
+
+  renderDeleteButton() {
+    return (
+      <div className={styles.deleteButton} onClick={this.delete}>
+        ❌
+      </div>
+    );
+  }
+
   render() {
     const { user, message } = this.props;
     return (
@@ -35,6 +49,7 @@ class Toot extends React.Component {
         <User name={user} />
         <p>{message}</p>
         {this.renderLikeButton()}
+        {this.renderDeleteButton()}
       </div>
     );
   }

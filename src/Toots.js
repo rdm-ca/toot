@@ -30,8 +30,20 @@ class Toots extends React.Component {
       });
   };
 
-  tootUnliked = () => {
-    this.setState({ likedToots: this.state.likedToots - 1 });
+  tootUnliked = id => {
+    axios
+      .patch(`http://localhost:3001/toots/${id}`, { liked: false })
+      .then(response => {
+        this.setState({ likedToots: this.state.likedToots - 1 });
+      });
+  };
+
+  deleteToot = id => {
+    axios.delete(`http://localhost:3001/toots/${id}`).then(response => {
+      let toots = this.state.toots;
+      toots = toots.filter(toot => toot.id != id);
+      this.setState({ toots });
+    });
   };
 
   renderToots() {
@@ -46,6 +58,7 @@ class Toots extends React.Component {
           key={i}
           tootLiked={this.tootLiked}
           tootUnliked={this.tootUnliked}
+          deleteToot={this.deleteToot}
         >
           <div>Extra message</div>
         </Toot>
