@@ -13,11 +13,7 @@ class NewTootForm extends React.Component {
 
     const { message, user } = this.state;
 
-    this.props.addToot({
-      id: 5,
-      message: message,
-      user: user
-    });
+    this.props.addToot({ message, user });
   };
 
   updateField = (field, value) => {

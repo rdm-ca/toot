@@ -66,10 +66,14 @@ class Toots extends React.Component {
     });
   }
 
-  addToot = toot => {
-    let toots = this.state.toots;
-    toots.push(toot);
-    this.setState({ toots: toots });
+  addToot = ({ user, message }) => {
+    axios
+      .post("http://localhost:3001/toots", { user, message })
+      .then(response => {
+        let toots = this.state.toots;
+        toots.push(response.data);
+        this.setState({ toots: toots });
+      });
   };
 
   render() {
