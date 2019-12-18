@@ -32,7 +32,7 @@ class TootForm extends React.Component {
     axios
       .patch(`http://localhost:3001/toots/${this.props.id}`, { user, message })
       .then(response => {
-        this.props.toggleEditing();
+        this.props.updateToot(response.data);
       });
   };
 

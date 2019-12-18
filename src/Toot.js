@@ -8,6 +8,8 @@ import styles from "./Toot.module.css";
 
 class Toot extends React.Component {
   state = {
+    user: this.props.user,
+    message: this.props.message,
     liked: this.props.liked,
     editing: false
   };
@@ -57,8 +59,14 @@ class Toot extends React.Component {
     this.setState({ editing: !this.state.editing });
   };
 
+  updateToot = ({ message, user }) => {
+    this.setState({ message, user });
+    this.toggleEditing();
+  };
+
   renderFormOrToot() {
-    const { user, message, id } = this.props;
+    const { id } = this.props;
+    const { user, message } = this.state;
     if (this.state.editing) {
       return (
         <TootForm
@@ -66,7 +74,7 @@ class Toot extends React.Component {
           message={message}
           editing={true}
           id={id}
-          toggleEditing={this.toggleEditing}
+          updateToot={this.updateToot}
         />
       );
     } else {
