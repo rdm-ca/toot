@@ -5,15 +5,29 @@ import NewTootForm from "./NewTootForm";
 
 import styles from "./Toots.module.css";
 
+import axios from "axios";
+
 class Toots extends React.Component {
   state = {
     likedToots: 0,
-    toots: this.props.toots
+    toots: []
   };
 
-  tootLiked = () => {
-    this.setState({ likedToots: this.state.likedToots + 1 });
-    console.log(this.state.likedToots);
+  componentDidMount() {
+    axios.get("http://localhost:3001/toots").then(response => {
+      const toots = response.data;
+      const likedToots = toots.filter(toot => toot.liked).length;
+      this.setState({ toots, likedToots });
+      // this.setState({ toots: toots, likedToots: likedToots });
+    });
+  }
+
+  tootLiked = id => {
+    axios
+      .patch(`http://localhost:3001/toots/${id}`, { liked: true })
+      .then(response => {
+        this.setState({ likedToots: this.state.likedToots + 1 });
+      });
   };
 
   tootUnliked = () => {

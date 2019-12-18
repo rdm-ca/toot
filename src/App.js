@@ -9,7 +9,7 @@ class App extends React.Component {
       <div className="App">
         <h1>Tooter</h1>
         <menu></menu>
-        <Toots toots={this.props.toots} />
+        <Toots />
       </div>
     );
   }

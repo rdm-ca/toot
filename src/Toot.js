@@ -6,13 +6,13 @@ import styles from "./Toot.module.css";
 
 class Toot extends React.Component {
   state = {
-    liked: false
+    liked: this.props.liked
   };
 
   toggleLiked = () => {
     const newLikedStatus = !this.state.liked;
     if (newLikedStatus) {
-      this.props.tootLiked();
+      this.props.tootLiked(this.props.id);
     } else {
       this.props.tootUnliked();
     }

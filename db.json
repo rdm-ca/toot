@@ -1,0 +1,22 @@
+{
+  "toots": [
+    {
+      "id": 1,
+      "user": "Ryan",
+      "message": "I really need to slow things down.",
+      "liked": true
+    },
+    {
+      "id": 2,
+      "user": "Literally everyone",
+      "message": "Yes you certainly do.",
+      "liked": true
+    },
+    {
+      "user": "Ryan",
+      "message": "Content Type matters",
+      "id": 7,
+      "liked": true
+    }
+  ]
+}

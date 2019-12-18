@@ -4,34 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-// const name = "Ryan Bigg";
-// const header = <h1>{name}</h1>;
-// const app = <div>{header} Example React Application</div>;
-
-const toots = [
-  {
-    id: 1,
-    message: "Hello Earth 616",
-    user: "Jack"
-  },
-  {
-    id: 2,
-    message: "Hello Jupiter",
-    user: "Ryan"
-  },
-  {
-    id: 3,
-    message: "Hello Saturn",
-    user: "Roddy"
-  },
-  {
-    id: 4,
-    message: "Christmas SUCKS",
-    user: "Grinch"
-  }
-];
-
-ReactDOM.render(<App toots={toots} />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
