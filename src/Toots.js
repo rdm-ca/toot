@@ -47,6 +47,14 @@ class Toots extends React.Component {
     });
   };
 
+  updateToot = (id, user, message, callback) => {
+    axios
+      .patch(`http://localhost:3001/toots/${this.props.id}`, { user, message })
+      .then(response => {
+        callback();
+      });
+  };
+
   renderToots() {
     const ignoredUsers = ["Grinch"];
     const bestToots = this.state.toots.filter(
@@ -60,6 +68,7 @@ class Toots extends React.Component {
           tootLiked={this.tootLiked}
           tootUnliked={this.tootUnliked}
           deleteToot={this.deleteToot}
+          updateToot={this.updateToot}
         >
           <div>Extra message</div>
         </Toot>
