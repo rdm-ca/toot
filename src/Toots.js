@@ -1,7 +1,8 @@
 import React from "react";
 
 import Toot from "./Toot";
-import NewTootForm from "./NewTootForm";
+
+import NewTootForm from "./TootForm";
 
 import styles from "./Toots.module.css";
 

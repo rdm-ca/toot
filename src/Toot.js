@@ -2,11 +2,14 @@ import React from "react";
 
 import User from "./User";
 
+import TootForm from "./TootForm";
+
 import styles from "./Toot.module.css";
 
 class Toot extends React.Component {
   state = {
-    liked: this.props.liked
+    liked: this.props.liked,
+    editing: false
   };
 
   toggleLiked = () => {
@@ -42,12 +45,37 @@ class Toot extends React.Component {
     );
   }
 
-  render() {
+  renderEditButton() {
+    return (
+      <div className={styles.editButton} onClick={this.edit}>
+        ✏️
+      </div>
+    );
+  }
+
+  edit = () => {
+    this.setState({ editing: true });
+  };
+
+  renderFormOrToot() {
     const { user, message } = this.props;
+    if (this.state.editing) {
+      return <TootForm user={user} message={message} />;
+    } else {
+      return (
+        <div>
+          <User name={user} />
+          <p>{message}</p>
+        </div>
+      );
+    }
+  }
+
+  render() {
     return (
       <div className={styles.Toot}>
-        <User name={user} />
-        <p>{message}</p>
+        {this.renderFormOrToot()}
+        {this.renderEditButton()}
         {this.renderLikeButton()}
         {this.renderDeleteButton()}
       </div>

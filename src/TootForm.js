@@ -1,8 +1,8 @@
 import React from "react";
 
-import styles from "./NewTootForm.module.css";
+import styles from "./TootForm.module.css";
 
-class NewTootForm extends React.Component {
+class TootForm extends React.Component {
   state = {
     user: null,
     message: null
@@ -30,7 +30,7 @@ class NewTootForm extends React.Component {
 
   render() {
     return (
-      <div className={styles.NewTootForm}>
+      <div className={styles.TootForm}>
         <form onSubmit={this.addToot}>
           <h2>New Toot</h2>
           <div>
@@ -58,4 +58,4 @@ class NewTootForm extends React.Component {
   }
 }
 
-export default NewTootForm;
+export default TootForm;
