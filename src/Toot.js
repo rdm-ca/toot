@@ -1,32 +1,40 @@
 import React from "react";
-
 import User from "./User";
 
 import TootForm from "./TootForm";
-
 import styles from "./Toot.module.css";
 
-class Toot extends React.Component {
-  state = {
+class Toot extends React.Component
+{
+  state =
+  {
     user: this.props.user,
     message: this.props.message,
     liked: this.props.liked,
     editing: false
   };
 
-  toggleLiked = () => {
-    const { tootLiked, tootUnliked, id } = this.props;
+  toggleLiked = () =>
+  {
+    const {tootLiked, tootUnliked, id} = this.props;
     const newLikedStatus = !this.state.liked;
-    if (newLikedStatus) {
-      tootLiked(id);
-    } else {
-      tootUnliked(id);
+
+    if( newLikedStatus )
+    {
+      tootLiked( id );
     }
-    this.setState({ liked: newLikedStatus });
+    else
+    {
+      tootUnliked( id );
+    }
+
+    this.setState( {liked: newLikedStatus} );
   };
 
-  renderLikeButton() {
+  renderLikeButton()
+  {
     const buttonIcon = this.state.liked ? "❤️" : "🖤";
+
     return (
       <div className={styles.likeButton} onClick={this.toggleLiked}>
         {buttonIcon}
@@ -34,12 +42,14 @@ class Toot extends React.Component {
     );
   }
 
-  delete = () => {
-    const { id, deleteToot } = this.props;
-    deleteToot(id);
+  delete = () =>
+  {
+    const {id, deleteTootWithAxios} = this.props;
+    deleteTootWithAxios( id );
   };
 
-  renderDeleteButton() {
+  renderDeleteButton()
+  {
     return (
       <div className={styles.deleteButton} onClick={this.delete}>
         ❌
@@ -47,7 +57,8 @@ class Toot extends React.Component {
     );
   }
 
-  renderEditButton() {
+  renderEditButton()
+  {
     return (
       <div className={styles.editButton} onClick={this.toggleEditing}>
         ✏️
@@ -55,29 +66,40 @@ class Toot extends React.Component {
     );
   }
 
-  toggleEditing = () => {
-    this.setState({ editing: !this.state.editing });
-  };
+  toggleEditing = () =>
+  {
+    this.setState( {editing: !this.state.editing } );
+  }
 
-  updateToot = ({ message, user }) => {
-    this.setState({ message, user });
+  updateTootInToot = ( user, message ) =>
+  {
+    const {id} = this.props;
+
+    this.props.updateTootWithAxios( id, user, message );
+
+    this.setState( { user, message } );
     this.toggleEditing();
   };
 
-  renderFormOrToot() {
-    const { id } = this.props;
-    const { user, message } = this.state;
-    if (this.state.editing) {
+  renderFormOrToot()
+  {
+    const {id} = this.props;
+    const {user, message} = this.state;
+
+    if( this.state.editing )
+    {
       return (
         <TootForm
           user={user}
           message={message}
           editing={true}
           id={id}
-          updateToot={this.updateToot}
+          updateTootInToot={this.updateTootInToot}
         />
       );
-    } else {
+    }
+    else
+    {
       return (
         <div>
           <User name={user} />
@@ -87,7 +109,8 @@ class Toot extends React.Component {
     }
   }
 
-  render() {
+  render()
+  {
     return (
       <div className={styles.Toot}>
         {this.renderFormOrToot()}

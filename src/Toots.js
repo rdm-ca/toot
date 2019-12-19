@@ -1,84 +1,76 @@
 import React from "react";
-
-import Toot from "./Toot";
-
-import NewTootForm from "./TootForm";
-
-import styles from "./Toots.module.css";
-
 import axios from "axios";
 
-class Toots extends React.Component {
-  state = {
+import Toot from "./Toot";
+import styles from "./Toots.module.css";
+import TootForm from "./TootForm";
+
+
+class Toots extends React.Component
+{
+  state =
+  {
     likedToots: 0,
     toots: []
   };
 
-  componentDidMount() {
-    axios.get("http://localhost:3001/toots").then(response => {
+  componentDidMount()
+  {
+    axios.get("http://localhost:3001/toots")
+    .then( (response) =>
+    {
       const toots = response.data;
       const likedToots = toots.filter(toot => toot.liked).length;
-      this.setState({ toots, likedToots });
-      // this.setState({ toots: toots, likedToots: likedToots });
-    });
+
+      this.setState({ toots: toots, likedToots: likedToots });
+    } );
   }
 
-  tootLiked = id => {
+  tootLiked = (id) =>
+  {
     axios
-      .patch(`http://localhost:3001/toots/${id}`, { liked: true })
-      .then(response => {
-        this.setState({ likedToots: this.state.likedToots + 1 });
-      });
+      .patch( `http://localhost:3001/toots/${id}`, { liked: true } )
+      .then( (response) =>
+      {
+        this.setState( { likedToots: this.state.likedToots + 1 } );
+      } );
   };
 
-  tootUnliked = id => {
+  tootUnliked = (id) =>
+  {
     axios
-      .patch(`http://localhost:3001/toots/${id}`, { liked: false })
-      .then(response => {
-        this.setState({ likedToots: this.state.likedToots - 1 });
-      });
+      .patch( `http://localhost:3001/toots/${id}`, { liked: false } )
+      .then( (response) =>
+      {
+        this.setState( { likedToots: this.state.likedToots - 1 } );
+      } );
   };
 
-  deleteToot = id => {
-    axios.delete(`http://localhost:3001/toots/${id}`).then(response => {
-      let toots = this.state.toots;
-      toots = toots.filter(toot => toot.id != id);
-      this.setState({ toots });
+  deleteTootWithAxios = (id) =>
+  {
+    axios
+      .delete(`http://localhost:3001/toots/${id}`).then( (response) =>
+      {
+        let toots = this.state.toots;
+        toots = toots.filter(toot => toot.id != id);
+        this.setState({ toots });
     });
   };
 
-  updateToot = (id, user, message, callback) => {
+  updateTootWithAxios = (id, user, message) =>
+  {
     axios
-      .patch(`http://localhost:3001/toots/${this.props.id}`, { user, message })
-      .then(response => {
-        callback();
-      });
-  };
-
-  renderToots() {
-    const ignoredUsers = ["Grinch"];
-    const bestToots = this.state.toots.filter(
-      toot => !ignoredUsers.includes(toot.user)
-    );
-    return bestToots.map((toot, i) => {
-      return (
-        <Toot
-          {...toot}
-          key={i}
-          tootLiked={this.tootLiked}
-          tootUnliked={this.tootUnliked}
-          deleteToot={this.deleteToot}
-          updateToot={this.updateToot}
-        >
-          <div>Extra message</div>
-        </Toot>
-      );
-    });
+      .patch( `http://localhost:3001/toots/${id}`, {user, message} )
+      .then( (response) =>
+      {
+        console.log( `Updated: ${user} ${message} with ${id} updated` );
+      } );
   }
 
-  addToot = ({ user, message }) => {
+  addTootWithAxios = (user, message) =>
+  {
     axios
-      .post("http://localhost:3001/toots", { user, message })
+      .post("http://localhost:3001/toots", {user, message})
       .then(response => {
         let toots = this.state.toots;
         toots.push(response.data);
@@ -86,10 +78,36 @@ class Toots extends React.Component {
       });
   };
 
-  render() {
+  renderToots()
+  {
+    const ignoredUsers = ["Grinch"];
+    const bestToots = this.state.toots.filter(
+      toot => !ignoredUsers.includes( toot.user )
+    );
+
+    return bestToots.map( (toot, i) =>
+    {
+      return (
+        <Toot
+          {...toot}
+          key={i}
+          tootLiked={this.tootLiked}
+          tootUnliked={this.tootUnliked}
+          deleteTootWithAxios={this.deleteTootWithAxios}
+          updateTootWithAxios={this.updateTootWithAxios}
+          addTootWithAxios={this.addTootWithAxios}
+        >
+          <div>Extra message</div>
+        </Toot>
+      );
+    } );
+  }
+
+  render()
+  {
     return (
       <div>
-        <NewTootForm addToot={this.addToot} />
+        <TootForm addTootWithAxios={this.addTootWithAxios} />
         <div className={styles.Toots}>
           <h2>Recent Toots</h2>
           Liked Toots: {this.state.likedToots}

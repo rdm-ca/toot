@@ -1,60 +1,69 @@
 import React from "react";
-import axios from "axios";
-
 import styles from "./TootForm.module.css";
 
-class TootForm extends React.Component {
-  state = {
+class TootForm extends React.Component
+{
+  state =
+  {
     user: this.props.user,
     message: this.props.message
   };
 
-  addToot = () => {
-    const { message, user } = this.state;
-
-    this.props.addToot({ message, user });
+  addTootInTootForm = () =>
+  {
+    const {message, user} = this.state;
+    this.props.addTootWithAxios( user, message );
   };
 
-  updateField = (field, value) => {
-    this.setState({ [field]: value });
-  };
+  updateField = (field, value) =>
+  {
+    this.setState( {[field]: value} );
+  }
 
-  updateMessage = e => {
-    this.updateField("message", e.target.value);
-  };
+  updateMessage = (element) =>
+  {
+    this.updateField( "message", element.target.value );
+  }
 
-  updateUser = e => {
-    this.updateField("user", e.target.value);
-  };
+  updateUser = (element) =>
+  {
+    this.updateField( "user", element.target.value );
+  }
 
-  updateToot = () => {
-    const { user, message } = this.state;
-    axios
-      .patch(`http://localhost:3001/toots/${this.props.id}`, { user, message })
-      .then(response => {
-        this.props.updateToot(response.data);
-      });
-  };
+  updateTootInTootForm = () =>
+  {
+    const {user, message} = this.state;
+    this.props.updateTootInToot( user, message );
+  }
 
-  submit = e => {
-    e.preventDefault();
+  submit = (element) =>
+  {
+    element.preventDefault();
 
-    if (this.props.editing) {
-      this.updateToot();
-    } else {
-      this.addToot();
+    if( this.props.editing )
+    {
+      this.updateTootInTootForm();
     }
-  };
+    else
+    {
+      this.addTootInTootForm();
+    }
+  }
 
-  renderHeader() {
-    if (this.props.editing) {
+  renderHeader()
+  {
+    if (this.props.editing)
+    {
       return <h2>Editing Toot</h2>;
-    } else {
+    }
+    else
+    {
       return <h2>New Toot</h2>;
     }
   }
 
-  render() {
+  render()
+  {
     return (
       <div className={styles.TootForm}>
         <form onSubmit={this.submit}>
@@ -77,7 +86,7 @@ class TootForm extends React.Component {
           </div>
           <input
             type="submit"
-            value="Toot 🥳"
+            value="Toot ✏️"
             className={`${styles.button} ${styles.input}`}
           ></input>
         </form>
